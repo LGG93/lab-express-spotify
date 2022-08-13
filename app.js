@@ -30,20 +30,34 @@ app.get('/', (req, res) => {
 });
    
  app.get("/artist-search",(req, res) =>{
-    console.log(req.query)
-    const {artist} = req.query
+    console.log("helloooo",req.query )
     spotifyApi
-  .searchArtists(artist)
+  .searchArtists(req.query.theArtistName)
   .then(data => {
-    console.log('The received data from the API: ', data.body.artists);
-    res.render('artist-search-results', {data})
-    //const redirectUrl = `/artist-search-results`
-    //console.log(redirectUrl);
-   // res.redirect(redirectUrl);
+   // console.log('The received data from the API: ', data.body.artists.items);
+    res.render('artist-search-results', {artists: data.body.artists.items})
   })
   .catch(err => console.log('The error while searching artists occurred: ', err));
  });
-  
+
+ app.get('/albums/:artistId', (req, res) => {
+  console.log("Id is: ", req.params.artistId)
+  spotifyApi
+  .getArtistAlbums(req.params.artistId)
+  .then((data)=>{
+    res.render('albums', {albums: data.body.items})
+  })
+});
+
+app.get("/tracks/:artistId", (req,res) => {
+  console.log(req.params.artistId)
+  spotifyApi
+  .getAlbumTracks(req.params.artistId)
+  .then((data) => {
+    console.log({tracks:data.body.items})
+    res.render("tracks",{tracks: data.body.items})
+  })
+})
 
 app.listen(4001, () => console.log('My Spotify project running on port 3000 🎧 🥁 🎸 🔊'));
 

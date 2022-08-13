@@ -1,6 +1,19 @@
 
+<ul>
+    {{#each artists}}
+        <li>{{ this.name }}
+            <br>
+            {{#if this.images}}
+                <img src="{{this.images.2.url}}" alt="{{this.name}}">
+            {{else}}
+                <img src="https://user-images.githubusercontent.com/25275745/82283218-ba9ec200-9963-11ea-9fc8-8408b57bef12.png"
+                    alt="{{this.name}}" style="width: 160px">
+            {{/if}}
+            <br>
+            {{!-- app.get('/albums/:artistId'....) --}}
+            <a href="/albums/{{this.id}}">View albums</a> </li>
+    {{/each}}
+</ul>
+<!--{{this.images.1.url}}
+<img src="{{this.images.[1].url}}"> how to get the images -->
 
-<button type="submit">view albums</button>
-{{#each data}}
-        <h2>{{this.body.artists.items.name}}</h2>
-{{/each}}

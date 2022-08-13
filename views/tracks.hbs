@@ -1,0 +1,22 @@
+<ul>
+
+    {{#each tracks}}
+    
+        <li>
+            
+            <figure>
+        <figcaption>{{this.name}}:</figcaption>
+        <audio
+        controls
+        src="{{preview_url}}">
+            Your browser does not support the
+            <code>audio</code> element.
+        </audio>
+</figure>
+           
+            {{!-- to see the tracks we need to provide the ID in the URL so it gets picked up by req.params in the route --}}
+           
+        </li>
+    {{/each}}
+</ul>
+     
